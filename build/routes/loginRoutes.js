@@ -12,9 +12,6 @@ function requireAuth(req, res, next) {
 }
 var router = express_1.Router();
 exports.router = router;
-router.get('/login', function (req, res) {
-    res.send("\n        <form method=\"POST\">\n            <div>\n                <label>Email</label>\n                <input name=\"email\"/>\n            </div>\n            <div>\n                <label>Password</label>\n                <input name=\"password\" type=\"password\" />\n            </div>\n            <button>Submit</button>\n        </form>\n        ");
-});
 router.post('/login', function (req, res) {
     var _a = req.body, email = _a.email, password = _a.password;
     if (email && password && email === 'hi@hi.com' && password === 'password') {
@@ -40,3 +37,31 @@ router.get('/logout', function (req, res) {
 router.get('/protected', requireAuth, function (req, res) {
     res.send('Welcome to the protected route, logged in user');
 });
+// @controller(/auth)
+// class LoginController {
+//     @get('/login')
+//     getLogin(req: Request, res: Response): void {
+//         res.send('form');
+//     }
+//     @post('/login')
+//     @validateBody('email','body')
+//     @use(requireAuth)
+//     postLogin(req: Request, res: Response): void {
+//         const { email, password } = req.body;
+//         if (email && password && email === 'hi@hi.com' && password === 'password') {
+//             req.session = { loggedIn: true};
+//             res.redirect('/');
+//         } else {
+//             res.send('Invalid email or password');
+//         }
+//     }
+// }
+function post(routeName) {
+    return function (target, key, desc) {
+        router.post(routeName, target[key]);
+    };
+}
+function use(middleware) {
+    return function (target, key, desc) {
+    };
+}
