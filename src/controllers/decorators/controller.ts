@@ -36,7 +36,7 @@ export function controller(routePrefix: string) {
             const validator = bodyValidators(requiredBodyProps);
 
             if (path) {
-                router[method](`${routePrefix}${path}`, ...middlewares, routeHandler);
+                router[method](`${routePrefix}${path}`, ...middlewares, validator, routeHandler);
             }
         }
     }

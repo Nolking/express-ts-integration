@@ -35,7 +35,7 @@ function controller(routePrefix) {
             var requiredBodyProps = Reflect.getMetadata(MetadataKeys_1.MetadataKeys.validator, target.prototype, key) || [];
             var validator = bodyValidators(requiredBodyProps);
             if (path) {
-                router[method].apply(router, __spreadArray(__spreadArray(["" + routePrefix + path], middlewares), [routeHandler]));
+                router[method].apply(router, __spreadArray(__spreadArray(["" + routePrefix + path], middlewares), [validator, routeHandler]));
             }
         }
     };
