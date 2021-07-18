@@ -1,15 +1,15 @@
 import { Request, Response, NextFunction } from 'express';
-import { get, controller, use, bodyValidator, post } from './decorators';
+import { get, controller, bodyValidator, post } from './decorators';
 
-function logger(req: Request, res: Response, next: NextFunction) {
-    console.log('Request was made!!!');
-    next();
-}
+// function logger(req: Request, res: Response, next: NextFunction) {
+//     console.log('Request was made!!!');
+//     next();
+// }
 
 @controller('/auth')
 class LoginController {
     @get('/login')
-    @use(logger)
+    // @use(logger)
     getLogin(req: Request, res: Response): void {
         res.send(
             `<form method="POST">
@@ -40,5 +40,10 @@ class LoginController {
             res.send('Invalid email or password');
         }
     }
-    )
+    
+    @get('/logout')
+    getLogout(req: Request, res: Response) {
+        req.session = undefined;
+        res.redirect('/');
+    };
 }
